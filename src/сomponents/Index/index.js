@@ -9,8 +9,8 @@ import socketIOClient from "socket.io-client";
 class Index extends Component {
   state = {
     endpoint: "http://127.0.0.1:5000",
+    test : ""
   };
-
   render() {
     const socket = socketIOClient(this.state.endpoint);
     socket.emit("test", { red: "hello" });
