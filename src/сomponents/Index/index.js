@@ -8,21 +8,21 @@ import socketIOClient from "socket.io-client";
 
 class Index extends Component {
   state = {
-    endpoint: "http://127.0.0.1:5000", // this is where we are connecting to with sockets
+    endpoint: "http://127.0.0.1:5000",
   };
 
   render() {
     const socket = socketIOClient(this.state.endpoint);
     socket.emit("test", { red: "hello" });
-    socket.on('serverTest', (data) => {
+    socket.on("serverTest", (data) => {
       console.log("--- ", data);
     });
     return (
       <div>
         <Switch>
-          <Route exact path="/" component={App} />
-          <Route path="/add" component={AddBook} />
-          <Route path="/edit/:id" component={EditBook} />
+          <Route exact path="/" component={App}/>
+          <Route path="/add" component={AddBook}/>
+          <Route path="/edit/:id" component={EditBook}/>
         </Switch>
       </div>
     );
