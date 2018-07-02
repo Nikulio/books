@@ -19,6 +19,14 @@ export const addBook = (data) => async (dispatch) => {
   });
 };
 
+export const deleteBook = (id) => async (dispatch) => {
+  const res = await axios.get(`http://localhost:5000/delete/${id}`);
+  dispatch({
+    type: consts.DELETE_BOOK,
+  });
+};
+
+
 export const fetchBooks = () => async (res) => {
   const { data } = await axios.get("http://localhost:5000/");
   res({
@@ -30,6 +38,6 @@ export const fetchBooks = () => async (res) => {
 export const editNote = (id, data) => async (dispatch) => {
   const res = await axios.post(`http://localhost:5000/update/${id}`, data);
   return {
-    type : consts.EDIT_BOOK
-  }
+    type: consts.EDIT_BOOK,
+  };
 };

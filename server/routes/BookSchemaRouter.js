@@ -38,7 +38,8 @@ BookSchemaRouter.route("/update/:id").post((req, res) => {
 });
 
 BookSchemaRouter.route("/delete/:id").get((req, res) => {
-    BookSchema.findByIdAndRemove(id, (err, book) => {
+  const { id } = req.params;
+  BookSchema.findByIdAndRemove(id, (err, book) => {
         res.json("Deleted")
     })
 })

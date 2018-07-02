@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchBooks } from "../../actions";
 import { Link, withRouter } from "react-router-dom";
+import NewBook from "../NewBook";
+
 
 class App extends Component {
   componentWillMount() {
@@ -20,19 +22,7 @@ class App extends Component {
       books.map((elem) => {
         const { _id } = elem;
         return (
-          <div key={elem._id}>
-            <div>{elem.title}</div>
-            <div>{elem.descr}</div>
-            <div>{elem.author}</div>
-            <div>
-              <Link to={`/edit/${elem._id}`}>Edit book</Link>
-              <Link
-                to={`/${elem._id}`}
-              >
-                Delete book
-              </Link>
-            </div>
-          </div>
+          <NewBook book={elem} key={elem._id}/>
         );
       })
     ) : (
