@@ -1,54 +1,43 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchBooks } from "../../actions";
-import { Link, withRouter } from "react-router-dom";
-import NewBook from "../NewBook";
+import { Switch, Route, withRouter } from "react-router-dom";
+import Home from "../Home";
+import AddBook from "../AddBook";
+import Header from "../Header";
+import EditBook from "../EditBook";
+import socketIOClient from "socket.io-client";
 
+import "./index.css";
 
 class App extends Component {
-  componentWillMount() {
-    this.props.fetchBooks();
-  }
-
-  deleteHandle = (e, id) => {
-    console.log("--- ", arguments);
-    e.preventDefault();
-    console.log("--- ", id);
-  };
-
-  fetchData = () => {
-    const { books } = this.props;
-    return books.length > 0 ? (
-      books.map((elem) => {
-        const { _id } = elem;
-        return (
-          <NewBook book={elem} key={elem._id}/>
-        );
-      })
-    ) : (
-      <div>No books, sorry</div>
-    );
+  state = {
+    endpoint: "http://127.0.0.1:5000",
+    test: "",
   };
 
   render() {
+    const socket = socketIOClient(this.state.endpoint);
+    socket.emit("test", { red: "hello" });
+    socket.on("serverTest", (data) => {
+      console.log("--- ", data);
+    });
     return (
       <div>
-        <div>
-          <Link to="/add">Add book</Link>
+        <Header />
+        <div className="app">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/add" component={AddBook} />
+            <Route path="/edit/:id" component={EditBook} />
+          </Switch>
         </div>
-        <div>{this.fetchData()}</div>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { books: state.books };
+  return {};
 }
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { fetchBooks },
-  )(App),
-);
+export default withRouter(connect(mapStateToProps)(App));

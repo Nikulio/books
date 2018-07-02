@@ -3,25 +3,70 @@ import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import { addBook } from "../../actions";
 
+
+import { withStyles } from "@material-ui/core/styles";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+
 import "./index.scss";
 
+const renderTextField = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...custom
+}) => (
+  <div>
+    <TextField autoComplete={label} label={label} {...input} {...custom} />
+    {touched && error && <div className="error">{error}</div>}
+  </div>
+);
+
+
+const styles = (theme) => ({
+  root: {
+    marginBottom: theme.spacing.unit * 4
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  link: {
+    color: "rgba(0, 0, 0, 0.87)",
+    textDecoration: "none",
+  },
+  inputWrap: {
+    marginBottom: "40px"
+  }
+});
+
 let AddBookForm = (props) => {
-  const { handleSubmit } = props;
+  const { handleSubmit, classes } = props;
+  console.log("--- ", classes);
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Book's title</label>
-        <Field name="title" component="input" type="text" />
+      <div className={classes.root}>
+        <Field
+          name="title"
+          component={renderTextField}
+          label="Book's title"
+        />
       </div>
-      <div>
-        <label htmlFor="descr">Book's description</label>
-        <Field name="descr" component="textarea" type="text" />
+      <div className={classes.inputWrap}>
+        <Field
+          name="author"
+          component={renderTextField}
+          label="Book's author"
+        />
       </div>
-      <div>
-        <label htmlFor="author">Author</label>
-        <Field name="author" component="input" type="text" />
+      <div className={classes.root}>
+        <Field
+          name="descr"
+          component={renderTextField}
+          label="Book's description"
+        />
       </div>
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
     </form>
   );
 };
@@ -36,9 +81,11 @@ class AddBook extends Component {
   };
 
   render() {
+    const {classes} = this.props;
+    console.log("--- ", classes);
     return (
       <div>
-        <AddBookForm onSubmit={this.submit} />
+        <AddBookForm classes onSubmit={this.submit} />
       </div>
     );
   }
@@ -52,7 +99,9 @@ const mapStateToProps = (state) => {
     init: state.init,
   };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddBook);
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(AddBook),
+);
