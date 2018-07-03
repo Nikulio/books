@@ -19,7 +19,7 @@ const styles = (theme) => ({
     margin: theme.spacing.unit,
   },
   link: {
-    color: "rgba(0, 0, 0, 0.87)",
+    color: "inherit",
     textDecoration: "none",
   },
 });
@@ -41,12 +41,12 @@ class Book extends Component {
         <Typography component="h5">{author}</Typography>
         <Typography component="p">{descr}</Typography>
         <div>
-          <Button color="primary" className={classes.button}>
+          <Button variant="contained" color="primary" className={classes.button}>
             <Link className={classes.link} to={`/edit/${_id}`}>
               Edit book
             </Link>
           </Button>
-          <Button color="primary" className={classes.button}>
+          <Button color="secondary" variant="contained" className={classes.button}>
             <Link
               onClick={this.delete}
               className={classes.link}

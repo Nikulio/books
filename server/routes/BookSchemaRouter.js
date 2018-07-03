@@ -21,7 +21,6 @@ BookSchemaRouter.route("/edit/:id").get(function(req, res) {
   const { id } = req.params;
   console.log("--- /edit/:id");
   BookSchema.findById(id, (err, book) => {
-    console.log("--- book server", book);
     res.json(book);
   });
 });

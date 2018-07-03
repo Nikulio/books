@@ -4,39 +4,57 @@ import axios from "axios";
 import { Field, reduxForm } from "redux-form";
 import { editNote } from "../../actions";
 
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+
+import { renderTextField } from "../Inputs";
+import "./index.css";
+
+const styles = (theme) => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  link: {
+    color: "rgba(0, 0, 0, 0.87)",
+    textDecoration: "none",
+  },
+  inputWrap: {
+    marginBottom: "40px",
+    width: "100%",
+  },
+  editForm: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap",
+    width: "50%",
+  },
+});
+
 let EditBookForm = (props) => {
-  const { handleSubmit, data } = props;
-  console.log("--- ", data);
+  const { handleSubmit, data, classes } = props;
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Book's title</label>
-        <Field
-          name="title"
-          placeholder={data.title}
-          component="input"
-          type="text"
-        />
+    <form onSubmit={handleSubmit} className="editBook-form">
+      <div className="input-wrap">
+        <Field name="title" component={renderTextField} label={data.title} />
       </div>
-      <div>
-        <label htmlFor="descr">Book's description</label>
-        <Field
-          name="descr"
-          placeholder={data.descr}
-          component="textarea"
-          type="text"
-        />
-      </div>
-      <div>
-        <label htmlFor="author">Author</label>
+      <div className="input-wrap">
         <Field
           name="author"
-          placeholder={data.author}
-          component="input"
+          component={renderTextField}
           type="text"
+          label={data.author}
         />
       </div>
-      <button type="submit">Submit</button>
+      <div className="input-wrap">
+        <Field name="descr" component={renderTextField} label={data.descr} />
+      </div>
+      <div className="button-wrap">
+        <Button color="primary" type="submit" variant="contained">
+          Submit
+        </Button>
+      </div>
     </form>
   );
 };
@@ -58,7 +76,6 @@ class EditBook extends Component {
   };
 
   componentDidMount() {
-    console.log("--- ", this.props.match.params.id);
     axios
       .get(`http://localhost:5000/edit/${this.props.match.params.id}`)
       .then((response) => {
@@ -74,10 +91,17 @@ class EditBook extends Component {
       });
   }
   render() {
+    const { classes } = this.props;
     return (
-      <div>
-        <h1>fasfasd</h1>
-        <EditBookForm data={this.state} onSubmit={this.submit} />
+      <div className="editBook-wrap">
+        <Typography variant="display2" gutterBottom>
+          Edit book
+        </Typography>
+        <EditBookForm
+          classes={classes}
+          data={this.state}
+          onSubmit={this.submit}
+        />
       </div>
     );
   }
@@ -87,7 +111,9 @@ function mapStateToProps(state) {
   return {};
 }
 
-export default connect(
-  mapStateToProps,
-  { editNote },
-)(EditBook);
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    { editNote },
+  )(EditBook),
+);

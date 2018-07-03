@@ -1,0 +1,26 @@
+.input-wrap * {
+  width: 100%;
+}
+
+.button-wrap {
+  justify-content: center;
+  display: flex;
+}
+
+.input-wrap {
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.editBook-form {
+  width: 100%;
+}
+
+.editBook-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 50%;
+  margin: 0 auto;
+}

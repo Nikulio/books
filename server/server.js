@@ -32,7 +32,6 @@ io.on("connection", (socket) => {
   console.log("User connected");
 
   socket.on("test", (data) => {
-    console.log(data);
   });
 
   io.sockets.emit("serverTest", { test: "Hello world" });

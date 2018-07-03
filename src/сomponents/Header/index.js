@@ -4,10 +4,9 @@ import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import BookIcon from "@material-ui/icons/Book";
 import { Link, withRouter } from "react-router-dom";
 
 const styles = (theme) => ({
@@ -22,12 +21,12 @@ const styles = (theme) => ({
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20,
+    marginRight: "auto",
   },
-  link : {
-    color : "#fff",
-    textDecoration : "none"
-  }
+  link: {
+    color: "#fff",
+    textDecoration: "none",
+  },
 });
 
 class Header extends Component {
@@ -37,26 +36,25 @@ class Header extends Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            {/*<IconButton*/}
-              {/*className={classes.menuButton}*/}
-              {/*color="inherit"*/}
-              {/*aria-label="Menu"*/}
-            {/*>*/}
-              {/*<MenuIcon />*/}
-            {/*</IconButton>*/}
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.flex}
+            <Link
+              to="/"
+              style={{ color: "#fff" }}
+              className={classes.menuButton}
             >
-              Books
-            </Typography>
+              <IconButton color="inherit" aria-label="Menu">
+                <BookIcon />
+              </IconButton>
+            </Link>
 
             <Button className={classes.button} color="inherit">
-              <Link className={classes.link} to={"/"}>Home</Link>
+              <Link className={classes.link} to={"/"}>
+                Home
+              </Link>
             </Button>
             <Button className={classes.button} color="inherit">
-              <Link className={classes.link} to={"/add"}>Add book</Link>
+              <Link className={classes.link} to={"/add"}>
+                Add book
+              </Link>
             </Button>
           </Toolbar>
         </AppBar>
