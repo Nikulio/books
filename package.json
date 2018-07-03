@@ -28,7 +28,6 @@
   },
   "scripts": {
     "fire": "concurrently  \"react-scripts start\" \"nodemon server/server.js\"",
-    "heroku-postbuild": "npm install && npm run build",
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
     "build": "react-scripts build",
