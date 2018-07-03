@@ -22,9 +22,12 @@
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1"
   },
+  "engines": {
+    "node" : "8.11.3"
+  },
   "scripts": {
     "fire": "concurrently  \"react-scripts start\" \"nodemon server/server.js\"",
-    "start": "react-scripts start",
+    "start": "concurrently  \"react-scripts start\" \"node server/server.js\"",
     "server": "nodemon server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
