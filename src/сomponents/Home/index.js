@@ -18,7 +18,8 @@ class Home extends Component {
 
   fetchData = () => {
     const { books } = this.props;
-    return books.length > 0 ? (
+    console.log("--- ", books);
+    return books && books.length > 0 ? (
       books.map((elem) => {
         const { _id } = elem;
         return (
