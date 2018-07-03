@@ -5,11 +5,12 @@ const mongoose = require("mongoose");
 const http = require("http");
 const socketIO = require("socket.io");
 
-const { mongoLocal } = require("./database/db");
+const { mongoLocal, mongoReal } = require("./database/db");
 const PORT = process.env.PORT || 5000;
+const db = process.env.MONGOLAB_URI || mongoLocal;
 const BookSchemaRouter = require("./routes/BookSchemaRouter");
 
-mongoose.connect(mongoLocal).then(
+mongoose.connect(db).then(
   () => {
     console.log("--- mongo is up");
   },
@@ -31,8 +32,7 @@ const io = socketIO(server);
 io.on("connection", (socket) => {
   console.log("User connected");
 
-  socket.on("test", (data) => {
-  });
+  socket.on("test", (data) => {});
 
   io.sockets.emit("serverTest", { test: "Hello world" });
 
