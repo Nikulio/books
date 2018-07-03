@@ -39,8 +39,15 @@ BookSchemaRouter.route("/update/:id").post((req, res) => {
 BookSchemaRouter.route("/delete/:id").get((req, res) => {
   const { id } = req.params;
   BookSchema.findByIdAndRemove(id, (err, book) => {
-        res.json("Deleted")
-    })
-})
+    res.json("Deleted");
+  });
+});
+
+BookSchemaRouter.route("*").get((req, res) => {
+  res.sendFile(path.join(__dirname + "/build/index.html"));
+});
+
+app.get("*", (req, res) => {
+});
 
 module.exports = BookSchemaRouter;
