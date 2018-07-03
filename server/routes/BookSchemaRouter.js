@@ -1,6 +1,6 @@
 const express = require("express");
 const BookSchemaRouter = express.Router();
-
+const path = require("path");
 const BookSchema = require("../models/BookSchema");
 
 BookSchemaRouter.route("/").get(function(req, res) {
@@ -44,10 +44,8 @@ BookSchemaRouter.route("/delete/:id").get((req, res) => {
 });
 
 BookSchemaRouter.route("*").get((req, res) => {
-  res.sendFile(path.join(__dirname + "/build/index.html"));
+  res.sendFile(path.join(__dirname + "../../build/index.html"));
 });
 
-app.get("*", (req, res) => {
-});
 
 module.exports = BookSchemaRouter;

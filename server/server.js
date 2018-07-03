@@ -4,7 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const http = require("http");
-const socketIO = require("socket.io");
+// const socketIO = require("socket.io");
 
 const { mongoLocal, mongoReal } = require("./database/db");
 const PORT = process.env.PORT || 5000;
@@ -13,7 +13,7 @@ const BookSchemaRouter = require("./routes/BookSchemaRouter");
 
 mongoose.connect(db).then(
   () => {
-    console.log("--- mongo is up");
+    console.log("--- mongo is up as", db);
   },
   (err) => {
     console.log("--- db error is", err);
@@ -29,20 +29,20 @@ app.use(express.static(path.join(__dirname, '../build')));
 
 const server = http.createServer(app);
 
-const io = socketIO(server);
+// const io = socketIO(server);
 
-io.on("connection", (socket) => {
-  console.log("User connected");
+// io.on("connection", (socket) => {
+  // console.log("User connected");
 
-  socket.on("test", (data) => {});
-
-  io.sockets.emit("serverTest", { test: "Hello world" });
-
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
-  });
-});
+  // socket.on("test", (data) => {});
+  //
+  // io.sockets.emit("serverTest", { test: "Hello world" });
+  //
+  // socket.on("disconnect", () => {
+  //   console.log("user disconnected");
+  // });
+// });
 
 server.listen(PORT, () => {
-  console.log("--- success");
+  console.log("--- success on port", PORT);
 });

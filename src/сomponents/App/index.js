@@ -5,7 +5,7 @@ import Home from "../Home";
 import AddBook from "../AddBook";
 import Header from "../Header";
 import EditBook from "../EditBook";
-import socketIOClient from "socket.io-client";
+// import socketIOClient from "socket.io-client";
 
 import "./index.css";
 
@@ -16,11 +16,11 @@ class App extends Component {
   };
 
   render() {
-    const socket = socketIOClient(this.state.endpoint);
-    socket.emit("test", { red: "hello" });
-    socket.on("serverTest", (data) => {
-      console.log("--- ", data);
-    });
+    // const socket = socketIOClient(this.state.endpoint);
+    // socket.emit("test", { red: "hello" });
+    // socket.on("serverTest", (data) => {
+    //   console.log("--- ", data);
+    // });
     return (
       <div>
         <Header />
