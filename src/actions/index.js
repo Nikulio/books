@@ -12,7 +12,7 @@ import axios from "axios";
 //
 
 export const addBook = (data) => async (dispatch) => {
-  const res = await axios.post("http://localhost:5000/add", data);
+  const res = await axios.post("/add", data);
   dispatch({
     type: consts.ADD_BOOK,
     payload: data,
@@ -20,7 +20,7 @@ export const addBook = (data) => async (dispatch) => {
 };
 
 export const deleteBook = (id) => async (dispatch) => {
-  const res = await axios.get(`http://localhost:5000/delete/${id}`);
+  const res = await axios.get(`/delete/${id}`);
   dispatch({
     type: consts.DELETE_BOOK,
   });
@@ -28,7 +28,7 @@ export const deleteBook = (id) => async (dispatch) => {
 
 
 export const fetchBooks = () => async (res) => {
-  const { data } = await axios.get("http://localhost:5000/");
+  const { data } = await axios.get("/");
   res({
     type: consts.FETCH_BOOKS,
     payload: data,
@@ -36,7 +36,7 @@ export const fetchBooks = () => async (res) => {
 };
 
 export const editNote = (id, data) => async (dispatch) => {
-  const res = await axios.post(`http://localhost:5000/update/${id}`, data);
+  const res = await axios.post(`/update/${id}`, data);
   return {
     type: consts.EDIT_BOOK,
   };
