@@ -11,9 +11,7 @@ class Home extends Component {
   }
 
   deleteHandle = (e, id) => {
-    console.log("--- ", arguments);
     e.preventDefault();
-    console.log("--- ", id);
   };
 
   fetchData = () => {
