@@ -77,7 +77,7 @@ class EditBook extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:5000/edit/${this.props.match.params.id}`)
+      .get(`/api/edit/${this.props.match.params.id}`)
       .then((response) => {
         console.log("--- ", response.data);
         this.setState({

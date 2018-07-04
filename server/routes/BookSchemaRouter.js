@@ -44,7 +44,9 @@ BookSchemaRouter.route("/delete/:id").get((req, res) => {
 });
 
 BookSchemaRouter.route("*").get((req, res) => {
-  res.sendFile(path.join(__dirname, "../build/index.html"));
+  const file = path.join(__dirname, "../build/index.html");
+  res.sendFile(file);
 });
+
 
 module.exports = BookSchemaRouter;

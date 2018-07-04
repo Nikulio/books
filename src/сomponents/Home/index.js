@@ -18,12 +18,12 @@ class Home extends Component {
 
   fetchData = () => {
     const { books } = this.props;
-    console.log("--- ", books);
-    return books && books.length > 0 ? (
+    console.log("--- books", typeof books);
+    return (typeof books === "object") && books.length > 0 ? (
       books.map((elem) => {
         const { _id } = elem;
         return (
-          <Book book={elem} key={elem._id}/>
+          <Book book={elem} key={_id}/>
         );
       })
     ) : (
