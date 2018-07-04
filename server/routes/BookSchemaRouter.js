@@ -3,14 +3,9 @@ const BookSchemaRouter = express.Router();
 const path = require("path");
 const BookSchema = require("../models/BookSchema");
 
-BookSchemaRouter.route("*").get((req, res) => {
-  const file = path.join(__dirname, "../build/index.html");
-  res.sendFile(file);
-});
 
 
 BookSchemaRouter.route("/").get(function(req, res) {
-  console.log("--- /");
   BookSchema.find((err, data) => {
     err ? console.log("--- error in finding Schema", error) : res.json(data);
   });
@@ -49,6 +44,10 @@ BookSchemaRouter.route("/delete/:id").get((req, res) => {
   });
 });
 
+BookSchemaRouter.route("*").get((req, res) => {
+  const file = path.join(__dirname, "../build/index.html");
+  res.sendFile(file);
+});
 
 
 module.exports = BookSchemaRouter;
