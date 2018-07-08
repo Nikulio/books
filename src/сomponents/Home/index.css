@@ -1,0 +1,9 @@
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.books .books__book {
+    width: 100%;
+}

@@ -48,7 +48,7 @@ let EditBookForm = (props) => {
         />
       </div>
       <div className="input-wrap">
-        <Field name="descr" component={renderTextField} label={data.descr} />
+        <Field name="descr" multiline={true} component={renderTextField} label={data.descr} />
       </div>
       <div className="button-wrap">
         <Button color="primary" type="submit" variant="contained">

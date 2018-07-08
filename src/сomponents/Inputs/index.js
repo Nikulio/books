@@ -4,6 +4,30 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Select from "@material-ui/core/Select";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
+export const renderField = ({
+  input,
+  custom,
+  label,
+  multiline,
+  type,
+  meta: { touched, error, warning },
+}) => (
+  <div>
+    <TextField
+      placeholder={label}
+      type={type}
+      multiline={multiline}
+      autoComplete={label}
+      label={label}
+      {...(touched && error ? { error: true } : {})}
+      {...input}
+      {...custom}
+    />
+    {/*{touched &&*/}
+    {/*((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}*/}
+  </div>
+);
+
 export const renderTextField = ({
   input,
   label,
