@@ -8,6 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
+import BookForm from "../../forms/BookForm";
+
 import { renderTextField } from "../Inputs";
 import "./index.css";
 
@@ -33,7 +35,7 @@ const styles = (theme) => ({
 });
 
 let EditBookForm = (props) => {
-  const { handleSubmit, data, classes } = props;
+  const { handleSubmit, data } = props;
   return (
     <form onSubmit={handleSubmit} className="editBook-form">
       <div className="input-wrap">
@@ -48,7 +50,12 @@ let EditBookForm = (props) => {
         />
       </div>
       <div className="input-wrap">
-        <Field name="descr" multiline={true} component={renderTextField} label={data.descr} />
+        <Field
+          name="descr"
+          multiline={true}
+          component={renderTextField}
+          label={data.descr}
+        />
       </div>
       <div className="button-wrap">
         <Button color="primary" type="submit" variant="contained">
@@ -70,16 +77,12 @@ class EditBook extends Component {
     descr: "",
   };
 
-  submit = (data) => {
-    const { id } = this.props.match.params;
-    this.props.editNote(id, data);
-  };
+
 
   componentDidMount() {
     axios
       .get(`/api/edit/${this.props.match.params.id}`)
       .then((response) => {
-        console.log("--- ", response.data);
         this.setState({
           title: response.data.title,
           author: response.data.author,
@@ -91,17 +94,13 @@ class EditBook extends Component {
       });
   }
   render() {
-    const { classes } = this.props;
+    const { id } = this.props.match.params;
     return (
       <div className="editBook-wrap">
         <Typography variant="display2" gutterBottom>
           Edit book
         </Typography>
-        <EditBookForm
-          classes={classes}
-          data={this.state}
-          onSubmit={this.submit}
-        />
+        <BookForm data={this.state} dataID={id} />
       </div>
     );
   }

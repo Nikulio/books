@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import { Field, reduxForm } from "redux-form";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addBook } from "../actions";
+import { addBook, editNote } from "../actions";
 
 import { renderTextField, renderField } from "../сomponents/Inputs";
 import { required, maxLength15 } from "../сomponents/Inputs/validation";
@@ -25,14 +25,20 @@ const styles = (theme) => ({
 });
 
 let Form = (props) => {
-  const { handleSubmit, valid } = props;
+  const { handleSubmit, data } = props;
+  let title, author, descr;
+  if (data) {
+    title = data.title
+    author = data.author
+    descr = data.descr
+  }
   return (
     <form onSubmit={handleSubmit} className="addBook-form">
       <div className="input-wrap">
         <Field
           name="title"
           type="text"
-          label="Book's title"
+          label={title ? title : "Book's title"}
           component={renderField}
           validate={[required]}
         />
@@ -40,7 +46,7 @@ let Form = (props) => {
       <div className="input-wrap">
         <Field
           name="author"
-          label="Book's author"
+          label={author ? author : "Book's author"}
           component={renderField}
           validate={[required]}
         />
@@ -51,7 +57,7 @@ let Form = (props) => {
           name="descr"
           component={renderField}
           validate={[required]}
-          label="Book's description"
+          label={descr ? descr : "Book's description"}
         />
       </div>
       <div className="button-wrap">
@@ -64,14 +70,21 @@ let Form = (props) => {
 };
 
 class BookForm extends Component {
+
   submit = (data) => {
-    const { addBook } = this.props;
-    data.createdAt = Date.now();
-    addBook(data);
+    const { addBook, editNote, dataID } = this.props;
+    if (dataID) {
+      editNote(dataID, data);
+    }
+    else {
+      data.createdAt = Date.now();
+      addBook(data);
+    }
   };
 
   render() {
-    return <Form onSubmit={this.submit} />;
+    const {data} = this.props;
+    return <Form onSubmit={this.submit} data={data} />;
   }
 }
 
@@ -86,6 +99,6 @@ function mapStateToProps(state) {
 export default withStyles(styles)(
   connect(
     mapStateToProps,
-    { addBook },
+    { addBook, editNote },
   )(BookForm),
 );
